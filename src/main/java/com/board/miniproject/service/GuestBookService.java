@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -45,6 +46,13 @@ public class GuestBookService {
         Function<GuestBook, GuestBookDto> fn = (entity -> guestBookConverter.convertToListDto(entity));
 
         return new PageResponseDto<>(result, fn);
+
+    }
+
+    public GuestBookDto read(Long gno) {
+
+        Optional<GuestBook> result = guestBookRepository.findById(gno);
+        return result.isPresent()? guestBookConverter.convertToListDto(result.get()) : null;
 
     }
 

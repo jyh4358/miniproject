@@ -45,4 +45,24 @@ class GuestBookServiceTest {
             System.out.println("guestBookDto = " + guestBookDto);
         }
     }
+
+    @Test
+    public void testPage() {
+        PageRequestDto pageRequestDto = PageRequestDto.builder().page(1).size(10).build();
+
+        PageResponseDto<GuestBookDto, GuestBook> resultDto = guestBookService.getList(pageRequestDto);
+
+        System.out.println("PREV" + resultDto.isPrev());
+        System.out.println("NEXT" + resultDto.isNext());
+        System.out.println("TOTAL" + resultDto.getTotalPage());
+
+        System.out.println("----------------------------");
+        for (GuestBookDto guestBookDto : resultDto.getDtoList()) {
+            System.out.println("guestBookDto = " + guestBookDto);
+        }
+
+        System.out.println("============================");
+        resultDto.getPageList().forEach(i -> System.out.println("i = " + i));
+
+    }
 }
